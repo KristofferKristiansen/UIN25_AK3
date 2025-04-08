@@ -23,5 +23,33 @@ export const groupmembers = {
             title: 'Kiur',
             type: 'string',
         },
+        {
+            name: 'email',
+            type: 'string',
+            title: 'Email'
+        },
+        {
+            name: 'image',
+            type: 'image',
+            title: 'Image'
+        },
+        {
+            name: 'bio',
+            type: 'text',
+            title: 'Biography'
+        },
+        {
+            name: 'interests',
+            type: 'array',
+            title: 'Interests',
+            of: [{ type: 'string' }]
+        },
+        {
+            name: 'logEntries',
+            type: 'array',
+            title: 'Log Entries',
+            of: [{ type: 'text' }]
+        }
     ]
 }
+
