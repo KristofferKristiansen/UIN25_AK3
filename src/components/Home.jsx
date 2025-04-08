@@ -6,7 +6,7 @@ function Home() {
   const [members, setMembers] = useState([])
 
   useEffect(() => {
-    client.fetch(`*[_type == "groupMember"]{
+    client.fetch(`*[_type == "groupmembers"]{
       _id,
       name,
       email,
