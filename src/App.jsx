@@ -6,12 +6,11 @@ import Profile from './pages/Profile'
 function App() {
   return (
     <>
-      <Header>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/member/:id" element={<Profile />} />
-        </Routes>
-      </Header>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/member/:id" element={<Profile />} />
+      </Routes>
     </>
   )
 }
