@@ -5,22 +5,7 @@ export const groupmembers = {
     fields: [
         {
             name: 'name',
-            title: 'Frida',
-            type: 'string',
-        },
-        {
-            name: 'name',
-            title: 'Kristoffer',
-            type: 'string',
-        },
-        {
-            name: 'name',
-            title: 'Kevin',
-            type: 'string',
-        },
-        {
-            name: 'name',
-            title: 'Kiur',
+            title: 'name',
             type: 'string',
         },
         {
