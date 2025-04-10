@@ -9,39 +9,58 @@ function Profile() {
   const [logg, setLogg] = useState([])
 
   useEffect(() => {
-    // 1. Hent gruppemedlem basert på slug
-    client.fetch(`*[_type == "groupmembers" && slug.current == $slug][0]{
-      name,
-      email,
-      "imageUrl": image.asset->url,
-      bio,
-      interests
-    }`, { slug }).then(setMember)
+    console.log("🔍 Slug fra URL:", slug)
 
-    // 2. Hent arbeidslogg basert på navnet
-    client.fetch(`*[_type == "arbeidslogg" && navn == $name] | order(dato desc){
-      _id,
-      dato,
-      beskrivelse
-    }`, { name: slugToName(slug) }) // kan fjernes når arbeidslogg kobles direkte
-    .then(setLogg)
+    // 1. Hent medlem basert på slug
+    client.fetch(
+      `*[_type == "groupmembers" && slug.current == $slug][0]{
+        name,
+        email,
+        "imageUrl": image.asset->url,
+        bio,
+        interests
+      }`,
+      { slug }
+    ).then(data => {
+      console.log("✅ Medlem hentet fra Sanity:", data)
+      setMember(data)
+
+      // 2. Hent arbeidslogg for dette medlemmet basert på navn
+      if (data?.name) {
+        client.fetch(
+          `*[_type == "arbeidslogg" && navn == $name] | order(dato desc){
+            _id,
+            dato,
+            beskrivelse
+          }`,
+          { name: data.name }
+        ).then(loggData => {
+          console.log("📝 Arbeidslogg hentet:", loggData)
+          setLogg(loggData)
+        }).catch(err => {
+          console.error("❌ Feil ved henting av arbeidslogg:", err)
+        })
+      }
+    }).catch(err => {
+      console.error("❌ Feil ved henting av medlem:", err)
+    })
   }, [slug])
 
-  if (!member) return <div>Laster...</div>
+  if (!member) return <div>Laster profil...</div>
 
   return (
     <div style={{ padding: '2rem' }}>
-      <div style={{ display: 'flex', gap: '2rem' }}>
-        <div>
-          <img
-            src={member.imageUrl}
-            alt={member.name}
-            style={{ width: '300px', height: '300px', objectFit: 'cover', background: '#ccc' }}
-          />
-        </div>
+      <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+        <img
+          src={member.imageUrl}
+          alt={member.name}
+          style={{ width: '300px', height: '300px', objectFit: 'cover', background: '#ccc' }}
+        />
         <div>
           <h2>{member.name}</h2>
+          <p>{member.email}</p>
           <p>{member.bio}</p>
+
           <h3>Interesser</h3>
           <ul>
             {member.interests?.map((interest, i) => (
@@ -53,22 +72,26 @@ function Profile() {
 
       <div style={{ marginTop: '3rem' }}>
         <h3>Arbeidslogg</h3>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ backgroundColor: '#eee' }}>
-              <th style={cell}>Dato</th>
-              <th style={cell}>Hva ble gjort?</th>
-            </tr>
-          </thead>
-          <tbody>
-            {logg.map(entry => (
-              <tr key={entry._id}>
-                <td style={cell}>{format(new Date(entry.dato), 'yyyy-MM-dd')}</td>
-                <td style={cell}>{entry.beskrivelse}</td>
+        {logg.length > 0 ? (
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ backgroundColor: '#eee' }}>
+                <th style={cell}>Dato</th>
+                <th style={cell}>Hva ble gjort?</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {logg.map(entry => (
+                <tr key={entry._id}>
+                  <td style={cell}>{format(new Date(entry.dato), 'yyyy-MM-dd')}</td>
+                  <td style={cell}>{entry.beskrivelse}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>Ingen loggføringer funnet for dette medlemmet.</p>
+        )}
       </div>
     </div>
   )
@@ -78,17 +101,6 @@ const cell = {
   border: '1px solid #ccc',
   padding: '0.75rem',
   textAlign: 'left'
-}
-
-// Midlertidig mapping (til arbeidsloggen får referansefelt til person)
-function slugToName(slug) {
-  const map = {
-    "hans-hansen": "Hans Hansen",
-    "trine-tjensvold": "Trine Tjensvold",
-    "jostein-jensen": "Jostein Jensen",
-    "ann-sofi-berg": "Ann-Sofi Berg"
-  }
-  return map[slug] || ""
 }
 
 export default Profile
