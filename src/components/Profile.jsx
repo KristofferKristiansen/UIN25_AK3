@@ -9,7 +9,7 @@ function Profile() {
   const [logg, setLogg] = useState([])
 
   useEffect(() => {
-    console.log("🔍 Slug fra URL:", slug)
+    console.log("Slug fra URL:", slug)
 
     // 1. Hent medlem basert på slug
     client.fetch(
@@ -22,7 +22,7 @@ function Profile() {
       }`,
       { slug }
     ).then(data => {
-      console.log("✅ Medlem hentet fra Sanity:", data)
+      console.log("Medlem hentet fra Sanity:", data)
       setMember(data)
 
       // 2. Hent arbeidslogg for dette medlemmet basert på navn
@@ -35,14 +35,14 @@ function Profile() {
           }`,
           { name: data.name }
         ).then(loggData => {
-          console.log("📝 Arbeidslogg hentet:", loggData)
+          console.log("Arbeidslogg hentet:", loggData)
           setLogg(loggData)
         }).catch(err => {
-          console.error("❌ Feil ved henting av arbeidslogg:", err)
+          console.error("Feil ved henting av arbeidslogg:", err)
         })
       }
     }).catch(err => {
-      console.error("❌ Feil ved henting av medlem:", err)
+      console.error("Feil ved henting av medlem:", err)
     })
   }, [slug])
 
