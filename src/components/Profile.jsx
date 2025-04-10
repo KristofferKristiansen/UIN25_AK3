@@ -15,7 +15,6 @@ function Profile() {
     client.fetch(
       `*[_type == "groupmembers" && slug.current == $slug][0]{
         name,
-        email,
         "imageUrl": image.asset->url,
         bio,
         interests
