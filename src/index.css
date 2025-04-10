@@ -3,101 +3,158 @@
   padding: 0;
   box-sizing: border-box;
   justify-content: center;
-  }
-  
-  body {
-    font-family: 'Georgia', serif;
-    background-color: white;
-    color: black;
-    line-height: 1.6;
-  }
-  
-  
+}
+
+body {
+  font-family: 'Georgia', serif;
+  background-color: white;
+  color: black;
+  line-height: 1.6;
+}
+
+header {
+  background-color: #4B2E83;
+  color: rgb(11, 11, 11);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 24px;
+}
+
+nav a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 18px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+h2 {
+  text-align: center;
+  margin: 40px 0 20px;
+}
+
+.members {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.member-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 180px;
+  text-align: center;
+}
+
+img {
+  width: 100%;
+  height: 180px;
+  background-color: #ddd;
+  object-fit: cover;
+}
+
+.member-card p {
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.member-card a {
+  color: #4B2E83;
+  text-decoration: none;
+}
+
+.member-card a:hover {
+  text-decoration: underline;
+}
+
+section {
+  width: 90%;
+  margin: 40px auto;
+  border-collapse: collapse;
+  display: flex;
+  flex-direction: column;
+}
+
+section th, section td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+section th {
+  background-color: #f4f4f4;
+}
+
+section tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Responsiv Design */
+@media (max-width: 768px) {
   header {
-    background-color: #4B2E83;
-    color: rgb(11, 11, 11);
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  header h1 {
-    font-size: 24px;
-  }
-  
-  nav a {
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-    margin-left: 20px;
-    font-size: 18px;
-  }
-  
-  nav a:hover {
-    text-decoration: underline;
-  }
-  
-  
-  h2 {
-    text-align: center;
-    margin: 40px 0 20px;
-  }
-  
-  .members {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 0 20px;
-  }
-  
-  .member-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 180px;
-    text-align: center;
-  }
-  
-  img {
-    width: 100%;
-    height: 180px;
-    background-color: #ddd;
-    object-fit: cover;
-  }
-  
-  .member-card p {
-    margin-top: 8px;
-    font-weight: bold;
-  }
-  
-  .member-card a {
-    color: #4B2E83;
-    text-decoration: none;
-  }
-  
-  .member-card a:hover {
-    text-decoration: underline;
-  }
-  
-  
-  section {
-    width: 90%;
-    margin: 40px auto;
-    border-collapse: collapse;
-    display: flex;
     flex-direction: column;
+    align-items: flex-start;
   }
-  
+
+  nav {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    margin-left: 0;
+    margin-right: 10px;
+    font-size: 16px;
+  }
+
+  .members {
+    justify-content: flex-start;
+  }
+
+  .member-card {
+    width: 150px;
+  }
+
+  section {
+    width: 100%;
+  }
+
   section th, section td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
+    font-size: 14px;
   }
-  
-  section th {
-    background-color: #f4f4f4;
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 20px;
   }
-  
-  section tr:nth-child(even) {
-    background-color: #f9f9f9;
+
+  nav a {
+    font-size: 14px;
   }
+
+  .members {
+    padding: 0;
+    gap: 10px;
+  }
+
+  .member-card {
+    width: 120px;
+  }
+
+  section th, section td {
+    padding: 8px;
+    font-size: 12px;
+  }
+}
