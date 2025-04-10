@@ -1,75 +1,41 @@
-import { useEffect, useState } from 'react';
-import { client } from '../sanityClient';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { client } from "../sanityClient";
+import { format } from "date-fns"; 
 
-export default function Worklog() {
+export default function LogEntries() {
   const [logg, setLogg] = useState([]);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchLogg = async () => {
-      try {
-        const data = await client.fetch(`*[_type == "worklog"] | order(date desc){
-          _id,
-          date,
-          task,
-          hours,
-          member->{
-            name,
-            "slug": slug.current,
-            "imageUrl": image.asset->url
-          }
-        }`);
-        setLogg(data);
-      } catch (err) {
-        console.error(err);
-        setError('Kunne ikke hente arbeidsloggen.');
-      }
+    const fetchData = async () => {
+      const data = await client.fetch(`*[_type == "arbeidslogg"] | order(dato desc){
+        _id,
+        dato,
+        navn,
+        beskrivelse
+      }`);
+      setLogg(data);
     };
-    fetchLogg();
+
+    fetchData();
   }, []);
 
   return (
     <section>
       <h2>Arbeidslogg</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
       <table>
         <thead>
           <tr>
             <th>Dato</th>
             <th>Navn</th>
-            <th>Oppgave</th>
-            <th>Timer</th>
+            <th>Hva ble gjort?</th>
           </tr>
         </thead>
         <tbody>
-          {logg.map(entry => (
+          {logg.map((entry) => (
             <tr key={entry._id}>
-              <td>{format(new Date(entry.date), 'yyyy-MM-dd')}</td>
-              <td>
-                {entry.member?.imageUrl && (
-                  <img
-                    src={entry.member.imageUrl}
-                    alt={entry.member.name}
-                    style={{
-                      width: '30px',
-                      height: '30px',
-                      borderRadius: '50%',
-                      marginRight: '8px',
-                      verticalAlign: 'middle',
-                    }}
-                  />
-                )}
-                {entry.member?.slug ? (
-                  <Link to={`/profil/${entry.member.slug}`} style={{ verticalAlign: 'middle' }}>
-                    {entry.member.name}
-                  </Link>
-                ) : (
-                  entry.member?.name || 'Ukjent'
-                )}
-              </td>
-              <td>{entry.task}</td>
-              <td>{entry.hours} timer</td>
+              <td>{format(new Date(entry.dato), "dd.MM.yyyy")}</td>
+              <td>{entry.navn}</td>
+              <td>{entry.beskrivelse}</td>
             </tr>
           ))}
         </tbody>

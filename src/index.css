@@ -80,22 +80,22 @@
   }
   
   
-  .logg {
+  section {
     width: 90%;
     margin: 40px auto;
     border-collapse: collapse;
   }
   
-  .logg th, .logg td {
+  section th, section td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
   }
   
-  .logg th {
+  section th {
     background-color: #f4f4f4;
   }
   
-  .logg tr:nth-child(even) {
+  section tr:nth-child(even) {
     background-color: #f9f9f9;
   }

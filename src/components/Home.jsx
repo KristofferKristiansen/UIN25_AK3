@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { client } from '../sanityClient'
 import ProfileCard from './ProfileCard'
+import LogEntries from './LogEntries'
 
 function Home() {
   const [members, setMembers] = useState([])
@@ -22,6 +23,7 @@ function Home() {
           <ProfileCard key={member._id} member={member} />
         ))}
       </div>
+      <LogEntries />
     </div>
   )
 }
