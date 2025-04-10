@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 export default function Header({children}) {
   return (
     <>
-    <header style={{ padding: '1rem', backgroundColor: '#EDE8D0' }}>
+    <header style={{ padding: '1rem', backgroundColor: '#daf1fe' }}>
       <h1>Gruppe 5</h1>
       <nav style={{ display: 'flex', gap: '1rem' }}>
         <Link to="/">Hjem</Link>
