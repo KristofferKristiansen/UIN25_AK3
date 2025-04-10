@@ -16,7 +16,7 @@ function Home() {
 
   return (
     <div>
-      <h2>Forside</h2>
+      <h2>Gruppemedlemmer</h2>
       <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
         {members.map(member => (
           <ProfileCard key={member._id} member={member} />
