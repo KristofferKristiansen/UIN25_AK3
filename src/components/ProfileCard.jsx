@@ -5,19 +5,7 @@ function ProfileCard({ member }) {
       <div style={info}>
         <h3 style={{ margin: '0 0 0.5rem' }}>{member.name}</h3>
         <p style={{ margin: 0, fontSize: '0.9rem', color: '#555' }}>{member.email}</p>
-        <div style={{ marginTop: '1rem' }}>
-          <a
-            href={`/member/${member.slug}`}
-            style={{
-              fontSize: '0.9rem',
-              color: '#0077cc',
-              textDecoration: 'none',
-              fontWeight: 'bold',
-            }}
-          >
-            Se profil →
-          </a>
-        </div>
+        <p>Se profil..</p>
       </div>
     </div>
   )
@@ -31,6 +19,7 @@ const card = {
   background: '#fff',
   boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
   transition: 'transform 0.2s ease',
+  cursor: 'pointer',
 }
 
 const image = {
